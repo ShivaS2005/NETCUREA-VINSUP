@@ -1,8 +1,10 @@
 services:
   - type: web
-    name: netcurea-backend
+    name: netcurea
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install -r requirements.txt
+      cd "Syed Medigrid/VINSUP HOSPITAL/frontend" && npm install && npm run build
     startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
@@ -13,16 +15,16 @@ services:
         sync: false
       - key: FLASK_ENV
         value: production
-
-  - type: web
-    name: netcurea-frontend
-    env: static
-    buildCommand: npm install && npm run build
-    staticPublishPath: "Syed Medigrid/VINSUP HOSPITAL/frontend/dist"
-    envVars:
-      - key: VITE_API_URL
-        sync: false
     routes:
+      # Backend API routes
+      - type: rewrite
+        source: /api/*
+        destination: /api/*
+      # Frontend static files
+      - type: static
+        source: /static/*
+        destination: "Syed Medigrid/VINSUP HOSPITAL/frontend/dist"
+      # Frontend SPA route - serve index.html for all other routes
       - type: rewrite
         source: /*
-        destination: /index.html
+        destination: "Syed Medigrid/VINSUP HOSPITAL/frontend/dist/index.html"
