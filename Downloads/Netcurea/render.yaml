@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: netcurea
+    name: netcurea-app
     env: python
     buildCommand: pip install Flask flask-cors pymongo bcrypt python-dotenv
-    startCommand: ls -la && python app.py
+    startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
         value: 3.14.3
