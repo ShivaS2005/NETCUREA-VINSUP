@@ -2,7 +2,7 @@ services:
   - type: web
     name: netcurea
     env: python
-    buildCommand: pip install -r requirements.txt && cd "Syed Medigrid/VINSUP HOSPITAL/frontend" && npm install && npm run build
+    buildCommand: ls -la && pip install -r requirements.txt && cd "Syed Medigrid/VINSUP HOSPITAL/frontend" && npm install && npm run build
     startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
